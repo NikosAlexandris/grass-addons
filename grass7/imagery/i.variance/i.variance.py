@@ -118,6 +118,8 @@ def main():
 
     if flags['w']:
         resampling_flags = 'w'
+    else:
+        resampling_flags = ''
 
     input = options['input']
     output = None
