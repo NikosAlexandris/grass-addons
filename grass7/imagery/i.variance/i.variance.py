@@ -26,6 +26,11 @@
 #% keyword: resolution
 #%end
 #
+#%flag
+#%  key: w
+#%  description: Weight according to area (slower)
+#%end
+#
 #%option G_OPT_R_INPUT
 #% description: Raster band  on which to perform analysis of variation of variance
 #%end
@@ -111,6 +116,9 @@ def main():
     matplotlib.use('wxAGG')  # required by windows
     import matplotlib.pyplot as plt
 
+    if flags['w']:
+        resampling_flags = 'w'
+
     input = options['input']
     output = None
     if options['csv_output']:
@@ -167,6 +175,7 @@ def main():
                             input=input,
                             output=temp_resamp_map,
                             method='average',
+                            flags=resampling_flags,
                             quiet=True,
                             overwrite=True)
         gscript.run_command('r.neighbors',
